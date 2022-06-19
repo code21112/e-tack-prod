@@ -4,12 +4,12 @@ import "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAawUk92JglkQ9PASGojdtR8gFxWkmdc5I",
-  authDomain: "e-tack.firebaseapp.com",
-  projectId: "e-tack",
-  storageBucket: "e-tack.appspot.com",
-  messagingSenderId: "294081738501",
-  appId: "1:294081738501:web:f854f6c98d195b060a696c",
+  apiKey: process.env.REACT_APP_FIREBASE_apiKey,
+  authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+  projectId: process.env.REACT_APP_FIREBASE_projectId,
+  storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+  appId: process.env.REACT_APP_FIREBASE_appId,
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
