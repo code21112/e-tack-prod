@@ -97,53 +97,6 @@ exports.saveAddress = async (req, res) => {
   res.json({ ok: true });
 };
 
-// exports.applyCouponToUserCart = async (req, res) => {
-//   const { coupon } = req.body;
-//   console.log("coupon within applyCouponToUserCart", coupon);
-
-//   let validCoupon = await Coupon.findOne({ name: coupon }).exec();
-
-//   if (validCoupon === null) {
-//     return res.json({ err: "Invalid coupon." });
-//   }
-
-//   console.log("validCoupon", validCoupon);
-
-//   const user = await User.findOne({ email: req.user.email }).exec();
-
-//   let { products, cartTotal } = await Cart.findOne({
-//     orderedBy: user._id,
-//   })
-//     .populate("products.product", "_id title price")
-//     .exec();
-
-//   console.log(
-//     "cartTotal",
-//     cartTotal,
-//     "validCoupon.discount",
-//     validCoupon.discount
-//   );
-
-//   // Calculate total after discount
-//   let totalAfterDiscount = (
-//     (cartTotal * (100 - validCoupon.discount)) /
-//     100
-//   ).toFixed(2);
-//   // let totalAfterDiscount = (
-//   //   (cartTotal - cartTotal * validCoupon.discount) /
-//   //   100
-//   // ).toFixed(2);
-
-//   // Updating the user's cart
-//   Cart.findOneAndUpdate(
-//     { orderedBy: user._id },
-//     { totalAfterDiscount },
-//     { new: true }
-//   );
-
-//   res.json(totalAfterDiscount);
-// };
-
 exports.applyCouponToUserCart = async (req, res) => {
   const { coupon } = req.body;
   console.log("coupon within applyCouponToUserCart", coupon);
