@@ -8,17 +8,6 @@ cloudinary.config({
   uplod_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
 });
 
-// exports.upload = async (req, res) => {
-//   let result = await cloudinary.uploader.upload(req.body.images, {
-//     public_id: `${Date.now()}`,
-//     resource_type: "auto",
-//   });
-//   res.json({
-//     public_id: result.public_id,
-//     url: result.secure_url,
-//   });
-// };
-
 exports.upload = async (req, res) => {
   let result = await cloudinary.uploader.upload(
     req.body.images,
