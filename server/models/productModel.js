@@ -1,33 +1,3 @@
-// const mongoose = require("mongoose");
-// const { ObjectId } = mongoose.Schema;
-
-// const productSchema = new mongoose.Schema(
-//   {
-//     title: {
-//       type: String,
-//       trim: true,
-//       minlength: [3, "Name too short"],
-//       maxlength: [32, "Name too long"],
-//       required: "Product title is required",
-//       text: true,
-//     },
-//     slug: {
-//       type: String,
-//       trim: true,
-//       lowercase: true,
-//       index: true,
-//     },
-//     parent: {
-//       type: ObjectId,
-//       ref: "Category",
-//       required: true,
-//     },
-//   },
-//   { timestamps: true }
-// );
-
-// module.exports = mongoose.model("Product", productSchema);
-
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
