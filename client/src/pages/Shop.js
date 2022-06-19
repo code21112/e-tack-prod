@@ -130,27 +130,6 @@ const Shop = () => {
     });
   }, [okPrice]);
 
-  // useEffect(() => {
-  //   const delayed = setTimeout(() => {
-  //     fetchProducts({
-  //       query: text,
-  //       category: categoriesChecked,
-  //       sub: subcategoriesSelected,
-  //     });
-
-  //     if (text.length > 0) {
-  //       setLoading(true);
-  //       fetchProducts({ query: text });
-  //     } else {
-  //       loadAllProducts();
-  //     }
-
-  //     // setLoading(true);
-  //     // fetchProducts({ query: text });
-  //   }, 300);
-  //   return () => clearTimeout(delayed);
-  // }, [text]);
-
   const handleSlider = (value) => {
     if (arrayEquals(value, [0, 4999])) {
       console.log("price value resetted", value);
@@ -162,56 +141,6 @@ const Shop = () => {
       setOkPrice(!okPrice);
     }, 300);
   };
-
-  // // // 4. Loading products based on category/categories
-  // // // showing categories in a list of checkboxes
-  // const showCategories = () =>
-  //   categories.map((c) => (
-  //     <div key={c._id}>
-  //       <Checkbox
-  //         className="pb-2 pr-4 pl-4 pt-3"
-  //         value={c._id}
-  //         name="category"
-  //         onChange={handleCheck}
-  //         checked={categoriesChecked.includes(c._id)}
-  //       >
-  //         {c.name}
-  //       </Checkbox>
-  //     </div>
-  //   ));
-
-  // const handleCheck = (e) => {
-  //   setStar("");
-  //   // setSubcategory("");
-
-  //   let inTheState = [...categoriesChecked];
-  //   let justChecked = e.target.value;
-  //   let foundInTheState = inTheState.indexOf(justChecked);
-
-  //   if (foundInTheState === -1) {
-  //     inTheState.push(justChecked);
-  //   } else {
-  //     inTheState.splice(foundInTheState, 1);
-  //   }
-  //   setCategoriesChecked(inTheState);
-  //   fetchProducts({ query: text, price, category: inTheState });
-  //   // console.log("inTheState", inTheState);
-  //   // console.log("categoriesChecked", categoriesChecked);
-  //   // if (inTheState.length > 0) {
-  //   //   fetchProducts({
-  //   //     query: text,
-  //   //     category: inTheState,
-  //   //     price,
-  //   //   });
-  //   // } else if (text) {
-  //   //   fetchProducts({
-  //   //     price,
-  //   //     query: text,
-  //   //   });
-  //   // } else {
-  //   //   loadAllProducts();
-  //   // }
-  // };
 
   const showCategories = () => (
     <Radio.Group defaultValue="" buttonStyle="solid">
@@ -303,26 +232,6 @@ const Shop = () => {
     // });
   };
 
-  // // 6. Loading products based on the subcategories
-
-  // // useEffect(() => {
-  // //   fetchProducts({
-  // //     sub: subcategoriesSelected,
-  // //     category: categoriesChecked,
-  // //   });
-  // // }, [subcategoriesSelected, categoriesChecked]);
-  // // const showSubcategories = () =>
-  // //   subcategories.map((s) => (
-  // //     <div
-  // //       key={s._id}
-  // //       onClick={() => handleSubcategories(s)}
-  // //       className="p-2 m-1 badge badge-secondary"
-  // //       style={{ cursor: "pointer" }}
-  // //     >
-  // //       {s.name}
-  // //     </div>
-  // //   ));
-
   const showSubcategories = () =>
     subcategories.map((s) => (
       <Button
@@ -346,39 +255,7 @@ const Shop = () => {
       </Button>
     ));
 
-  // // const showSubcategories = () =>
-  // //   subcategories.map((s) => (
-  // //     <div key={s._id}>
-  // //       <Button
-  // //         className="btn"
-  // //         value={s._id}
-  // //         name="subcategory"
-  // //         onChange={handleSelected}
-  // //         checked={subcategoriesSelected.includes(s._id)}
-  // //       >
-  // //         {s.name}
-  // //       </Button>
-  // //     </div>
-  // //   ));
-
-  // // const handleSubcategories = (sub) => {
-  // //   console.log("sub within handleSubcategories", sub);
-  // //   setSubcategory(sub);
-
-  // //   // Resetting the other search values
-  // //   setStar("");
-  // //   setPrice([0, 0]);
-  // //   setCategoriesChecked([]);
-  // //   dispatch({
-  // //     type: "SEARCH_QUERY",
-  // //     payload: { text: "" },
-  // //   });
-  // //     fetchProducts({ sub });
-  // // };
-
-  // // ////////////////////////////////////
-  // // My change
-  // ////////////////////////////////////////
+ 
   const arrayEquals = (a, b) => {
     return (
       Array.isArray(a) &&
@@ -388,152 +265,10 @@ const Shop = () => {
     );
   };
 
-  // const handleSelected = (sub) => {
-  //   // console.log("e.target.value handleSelected", e.target.value);
-  //   console.log("sub within hndleSelected", sub);
 
-  //   // Resetting the other search values
-  //   // setStar("");
-  //   // setPrice([0, 0]);
-  //   // setCategoriesChecked([]);
-  //   // dispatch({
-  //   //   type: "SEARCH_QUERY",
-  //   //   payload: { text: "" },
-  //   // });
-
-  //   let inTheState = [...subcategoriesSelected];
-  //   // let justSelected = e.target.value;
-  //   let justSelected = sub;
-  //   let foundInTheState = inTheState.indexOf(justSelected);
-  //   console.log("foundInTheState", foundInTheState);
-
-  //   if (foundInTheState === -1) {
-  //     inTheState.push(justSelected);
-  //   } else {
-  //     inTheState.splice(foundInTheState, 1);
-  //   }
-  //   setSubcategoriesSelected(inTheState);
-
-  //   if (
-  //     text !== "" &&
-  //     categoriesChecked.length > 0 &&
-  //     !arrayEquals(price, [0, 4999]) &&
-  //     inTheState.length !== 0
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     fetchProducts({
-  //       query: text,
-  //       category: categoriesChecked,
-  //       price,
-  //       sub: inTheState,
-  //     });
-  //   } else if (
-  //     text !== "" &&
-  //     categoriesChecked.length < 1 &&
-  //     !arrayEquals(price, [0, 4999]) &&
-  //     inTheState.length !== 0
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     fetchProducts({
-  //       query: text,
-  //       price,
-  //       sub: inTheState,
-  //     });
-  //   } else if (
-  //     inTheState.length !== 0 &&
-  //     categoriesChecked.length < 1 &&
-  //     text === "" &&
-  //     !arrayEquals(price, [0, 4999])
-  //   ) {
-  //     fetchProducts({
-  //       price,
-  //       sub: inTheState,
-  //     });
-  //   } else if (
-  //     text !== "" &&
-  //     categoriesChecked.length < 1 &&
-  //     arrayEquals(price, [0, 4999]) &&
-  //     inTheState.length !== 0
-  //   ) {
-  //     fetchProducts({
-  //       query: text,
-  //       sub: inTheState,
-  //     });
-  //   } else if (
-  //     inTheState.length < 1 &&
-  //     categoriesChecked.length > 0 &&
-  //     !arrayEquals(price, [0, 4999]) &&
-  //     text !== ""
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     fetchProducts({
-  //       query: text,
-  //       category: categoriesChecked,
-  //       price,
-  //     });
-  //   } else if (
-  //     inTheState.length !== 0 &&
-  //     categoriesChecked.length < 1 &&
-  //     text == "" &&
-  //     !arrayEquals(price, [0, 4999])
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     fetchProducts({
-  //       price,
-  //       sub: inTheState,
-  //     });
-  //   } else if (
-  //     inTheState.length !== 0 &&
-  //     categoriesChecked.length < 1 &&
-  //     text == "" &&
-  //     arrayEquals(price, [0, 4999])
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     // setPrice(undefined);
-  //     fetchProducts({
-  //       sub: inTheState,
-  //     });
-  //   } else if (
-  //     inTheState.length < 1 &&
-  //     text !== "" &&
-  //     categoriesChecked.length < 1
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     fetchProducts({
-  //       query: text,
-  //       price,
-  //     });
-  //   } else if (
-  //     inTheState.length < 1 &&
-  //     text === "" &&
-  //     categoriesChecked.length < 1
-  //     // &&
-  //     // subcategoriesToFetch
-  //   ) {
-  //     loadAllProducts();
-  //   }
-  // };
-
-  // // ///////////////////////////
-  // // MY CHANGE
   const handleSelected = (sub) => {
     // console.log("e.target.value handleSelected", e.target.value);
     console.log("sub within handleSelected", sub);
-
-    // Resetting the other search values
-    // setStar("");
-    // setPrice([0, 0]);
-    // setCategoriesChecked([]);
-    // dispatch({
-    //   type: "SEARCH_QUERY",
-    //   payload: { text: "" },
-    // });
 
     let inTheState = [...subcategoriesSelected];
     // let justSelected = e.target.value;
@@ -560,34 +295,6 @@ const Shop = () => {
   const handleToggle = (e) => {
     e.currentTarget.classList.toggle("selected");
   };
-
-  //// 7. Loading products based on the brand
-  // const showBrands = () =>
-  //   brands.map((b) => (
-  //     <Radio
-  //       value={b}
-  //       name={b}
-  //       checked={b === brand}
-  //       onChange={handleBrand}
-  //       className="pb-1 pl-4 pr-4"
-  //     >
-  //       {b}
-  //     </Radio>
-  //   ));
-
-  // const handleBrand = (e) => {
-  //   // Resetting the other values
-  //   setSubcategories([]);
-  //   dispatch({
-  //     type: "SEARCH_QUERY",
-  //     payload: { text: "" },
-  //   });
-  //   setPrice([0, 4999]);
-  //   setStar("");
-
-  //   setBrand(e.target.value);
-  //   fetchProducts({ brand: e.target.value });
-  // };
 
   const showBrands = () => {
     let newBrands = sortByAlphabeticalOrder(brands);
@@ -718,27 +425,6 @@ const Shop = () => {
       </Space>
     </Radio.Group>
   );
-
-  // const showShipping = () => (
-  //   <>
-  //     <Checkbox
-  //       className="pb-2 pl-4 pr-4"
-  //       onChange={handleRadioSelectShipping}
-  //       value="Yes"
-  //       checked={shipping === "Yes"}
-  //     >
-  //       Yes
-  //     </Checkbox>
-  //     <Checkbox
-  //       className="pb-2 pl-4 pr-4"
-  //       onChange={handleRadioSelectShipping}
-  //       value="No"
-  //       checked={shipping === "No"}
-  //     >
-  //       No
-  //     </Checkbox>
-  //   </>
-  // );
 
   const handleRadioSelectShipping = (e) => {
     // Resetting the other values
