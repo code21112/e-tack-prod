@@ -9,7 +9,7 @@ e-tack is built with the MERN stack: NodeJS, React, Redux, Express, MongoDB
 - Express
 - React with Redux as a state manager
 - NodeJS
-and
+#and
 - Firebase authentication with Google OAuth
 - Payment with Stripe
 - Deployed on Heroku (backend) and Firebase (frontend)
