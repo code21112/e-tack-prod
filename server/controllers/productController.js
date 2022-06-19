@@ -1,41 +1,3 @@
-// const Product = require("./../models/productModel");
-// const Category = require("./../models/categoryModel");
-// const Subcategory = require("./../models/subcategoryModel");
-// const slugify = require("slugify");
-
-// exports.createProduct = async (req, res) => {
-//   try {
-//     const { title } = req.body;
-//     res.json(
-//       await new Product({
-//         name,
-//         slug: slugify(title).toLowerCase(),
-//       }).save()
-//     );
-//   } catch (err) {
-//     console.log("err", err);
-//     // console.log("err.errors.title.kind", err.errors.title.kind);
-//     if (err.code === 11000) {
-//       res.status(400).send("This product is already existing.");
-//     }
-//     if (err.errors.name.kind === "minlength") {
-//       res
-//         .status(400)
-//         .send(
-//           "This product title is too short: it must be 2 characters at minimum."
-//         );
-//     }
-//     if (err.errors.name.kind === "maxlength") {
-//       res
-//         .status(400)
-//         .send(
-//           "This product title is too long: it must be 32 characters at the most."
-//         );
-//     }
-//     res.status(400).send("Product creation failed.");
-//   }
-// };
-
 const Product = require("./../models/productModel");
 const User = require("./../models/userModel");
 const slugify = require("slugify");
@@ -49,40 +11,10 @@ exports.createProduct = async (req, res) => {
     res.json(newProduct);
   } catch (err) {
     console.log("err", err);
-    // console.log("err.errors.properties", err.errors.properties);
-    // console.log("err.errors._message", err.errors._message);
-    // console.log("err.errors", err.errors);
-    // console.log("err.errors.category", err.errors.category);
-    // console.log("err.errors.category.CastError", err.errors.category.CastError);
-
-    // console.log("err.errors.description", err.errors.description);
-    // console.log(
-    //   "err.errors.description.properties.type",
-    //   err.errors.description.properties.type
-    // );
-
-    // console.log(
-    //   "err.errors.description.properties.path",
-    //   err.errors.description.properties.path
-    // );
-    // console.log(
-    //   "err.errors.description.properties.kind",
-    //   err.errors.description.properties.kind
-    // );
-
     console.log("err.errors.title", err.errors.title);
     if (err.code === 11000) {
       res.status(400).json({ err: "This product is already existing." });
     }
-    // if (err.errors.description.properties.type === "required") {
-    //   res.status(400).json({
-    //     err: `The ${err.errors.description.properties.path} is required.`,
-    //   });
-    // } else if (err.errors.price.properties.type === "required") {
-    //   res.status(400).json({
-    //     err: "The price is required.",
-    //   });
-    // }
     if (err.errors.title) {
       res.status(400).json({
         err: "The title of the product is required.",
@@ -122,31 +54,7 @@ exports.createProduct = async (req, res) => {
       err: err.message,
     });
   }
-  // if (err.errors.description.properties.type === "required") {
-  //   res
-  //     .status(400)
-  //     .json({
-  //       err: `The ${err.errors.description.properties.path} is required.`,
-  //     });
-  // }
-  // res.status(400).send("Product creation failed.");
-  // res.status(400).json({
-  //   err: err.message,
-  // });
 };
-
-// exports.readProduct = async (req, res) => {
-//   try {
-//     const product = await Product.findOne({ slug: req.params.slug });
-//     if (product) {
-//       return res.status(200).json(response.data);
-//     } else {
-//       return res.status(400);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 exports.readProduct = async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug })
@@ -155,18 +63,6 @@ exports.readProduct = async (req, res) => {
     .exec();
   res.json(product);
 };
-
-// exports.removeProduct = async (req, res) => {
-//   try {
-//     const deletedProduct = await Product.findOneAndRemove({
-//       slug: req.params.slug,
-//     }).exec();
-//     res.json(deletedProduct);
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(400).send("Produc deletion failed");
-//   }
-// };
 
 exports.updateProduct = async (req, res) => {
   try {
@@ -321,126 +217,6 @@ exports.listRelated = async (req, res) => {
   res.json(related);
 };
 
-// exports.searchFilters = async (req, res) => {
-//   const { query, price, category } = req.body;
-
-//   if (query) {
-//     console.log("query ---->", query);
-//     await handleQuery(req, res, query);
-//   }
-
-//   if (price !== undefined) {
-//     console.log("price ---->", price);
-//     await handlePrice(req, res, price);
-//   }
-//   if(category) {
-//     console.log("category ---->", category);
-//     await handleCategory(req, res, category);
-//   }
-// };
-
-// exports.searchFilters = async (req, res) => {
-//   const { query, price, category, stars, sub } = req.body;
-
-//   if (query && price !== undefined && category && sub) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("category ---->", category);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndPriceAndCategoryAndSub");
-//     await handleQueryAndPriceAndCategoryAndSub(
-//       req,
-//       res,
-//       query,
-//       price,
-//       category,
-//       sub
-//     );
-//   } else if (query && price == undefined && category && sub) {
-//     console.log("query ---->", query);
-//     console.log("category ---->", category);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndPriceAndCategoryAndSub");
-//     await handleQueryAndCategoryAndSub(req, res, query, category, sub);
-//   } else if (query && price !== undefined && !category && sub) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndPriceAndSub");
-//     await handleQueryAndPriceAndSub(req, res, query, price, sub);
-//   } else if (query && price == undefined && !category && sub) {
-//     console.log("query ---->", query);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndSub");
-//     await handleQueryAndSub(req, res, query, sub);
-//   } else if (query && price !== undefined && category) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("category ---->", category);
-//     console.log("within handleQueryAndPriceAndCategory");
-//     await handleQueryAndPriceAndCategory(req, res, query, price, category);
-//   } else if (query && price !== undefined && !category) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("within handleQueryAndPrice");
-//     await handleQueryAndPrice(req, res, query, price);
-//   } else if (!query && price !== undefined && !category) {
-//     console.log("price ---->", price);
-//     console.log("within handlePrice");
-//     await handlePrice(req, res, price);
-//   } else if (!query && price !== undefined && category) {
-//     console.log("price ---->", price);
-//     console.log("category ---->", category);
-//     console.log("within handlePriceAndCategory");
-//     await handlePriceAndCategory(req, res, price, category);
-//   } else if (query && price == undefined && !category) {
-//     console.log("query ---->", query);
-//     console.log("within handleQuery");
-//     await handleQuery(req, res, query);
-//   } else if (query && price == undefined && category) {
-//     console.log("query ---->", query);
-//     console.log("category ---->", category);
-//     console.log("within handleQueryAndCategory");
-//     await handleQueryAndCategory(req, res, query, category);
-//   } else if (!query && price === undefined && category) {
-//     console.log("category ---->", category);
-//     console.log("within handleCategory");
-//     await handleCategory(req, res, category);
-//   } else if (!query && price == undefined && !category && sub) {
-//     console.log("sub ---->", sub);
-//     console.log("within handleSub");
-//     await handleSub(req, res, sub);
-//   }
-
-//   if (stars) {
-//     console.log("stars ---->", stars);
-//     console.log("within handleStars");
-//     await handleStars(req, res, stars);
-//   }
-
-//   // if (sub) {
-//   //   console.log("sub ---->", sub);
-//   //   await handleSub(req, res, sub);
-//   // }
-//   // else if (query && stars) {
-//   //   console.log("query ---->", query);
-//   //   console.log("stars ---->", stars);
-//   //   await handleQueryAndStars(req, res, query, stars);
-//   // } else if (!query && stars) {
-//   //   console.log("stars ---->", stars);
-//   //   await handleStars(req, res, stars);
-//   // }
-// };
-
-// const handleQuery = async (req, res, query) => {
-//   const products = await Product.find({ $text: { $search: query } })
-//     .populate("category", "_id name")
-//     .populate("subcategories", "_id name")
-//     // .populate("postedBy", "_id name")
-//     .exec();
-//   res.json(products);
-// };
-
 const handleQuery = async (req, res, query) => {
   const products = await Product.find({
     title: { $regex: query, $options: "i" },
@@ -499,79 +275,6 @@ const handleQueryAndPrice = async (req, res, query, price) => {
   }
 };
 
-// const handleQueryAndCategory = async (req, res, query, category) => {
-//   try {
-//     let products = await Product.find({
-//       title: { $regex: query, $options: "i" },
-//       category: { $eq: category[0] },
-//     })
-//       .populate("category", "_id name")
-//       .populate("subcategories", "_id name")
-//       .exec();
-//     res.json(products);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// const handleQueryAndCategory = async (req, res, query, category) => {
-//   try {
-//     let products = await Product.find({
-//       title: { $regex: query, $options: "i" },
-//       category: category,
-//     })
-//       .populate("category", "_id name")
-//       .populate("subcategories", "_id name")
-//       .exec();
-//     res.json(products);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// const handlePriceAndCategory = async (req, res, price, category) => {
-//   try {
-//     let products = await Product.find({
-//       price: {
-//         $gte: price[0],
-//         $lte: price[1],
-//       },
-//       category: { $eq: category[0] },
-//     })
-//       .populate("category", "_id name")
-//       .populate("subcategories", "_id name")
-//       .exec();
-//     res.json(products);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// const handleQueryAndPriceAndCategory = async (
-//   req,
-//   res,
-//   query,
-//   price,
-//   category
-// ) => {
-//   try {
-//     let products = await Product.find({
-//       title: { $regex: query, $options: "i" },
-//       price: {
-//         $gte: price[0],
-//         $lte: price[1],
-//       },
-//       category: { $eq: category[0] },
-//     })
-//       .populate("category", "_id name")
-//       .populate("subcategories", "_id name")
-//       .exec();
-//     res.json(products);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
 const handleStars = async (req, res, stars) => {
   Product.aggregate([
     {
@@ -598,47 +301,6 @@ const handleStars = async (req, res, stars) => {
         });
     });
 };
-
-// const handleStars = async (req, res, stars) => {
-//   Product.aggregate([
-//     {
-//       $project: {
-//         title: "$title",
-//         description: "$description",
-//         averageRating:
-//       },
-//     },
-//   ]);
-// };
-
-// const handleQueryAndStars = async (req, res, query, stars) => {
-//   Product.aggregate([
-//     {
-//       $project: {
-//         document: "$$ROOT",
-//         floorAverage: {
-//           $floor: { $avg: "$ratings.star" },
-//         },
-//       },
-//     },
-//     {
-//       $match: { floorAverage: stars },
-//     },
-//   ])
-//     .limit(12)
-//     .exec((err, aggregates) => {
-//       if (err) console.log("Aggregate error", err);
-//       Product.find({
-//         $and: { _id: aggregates, title: { $regex: query, $options: "i" } },
-//       })
-//         .populate("category", "_id name")
-//         .populate("subcategories", "_id name")
-//         .exec((err, products) => {
-//           if (err) console.log("Products find error", err);
-//           res.json(products);
-//         });
-//     });
-// };
 
 const handleSub = async (req, res, sub) => {
   const products = await Product.find({ subcategories: { $all: sub } })
@@ -702,22 +364,6 @@ const handleQueryAndPriceAndCategoryAndSub = async (
     });
 };
 
-// const handleQueryAndPriceAndSub = async (req, res, query, price, sub) => {
-//   const products = await Product.find({
-//     title: { $regex: query, $options: "i" },
-//     price: {
-//       $gte: price[0],
-//       $lte: price[1],
-//     },
-//     subcategories: { $all: sub },
-//   })
-//     .populate("category", "_id name")
-//     .populate("subcategories", "_id name")
-//     .exec((err, products) => {
-//       if (err) console.log("handleSub error", err);
-//       res.json(products);
-//     });
-// };
 
 const arrayEquals = (a, b) => {
   return (
@@ -1935,92 +1581,3 @@ const handleBrand = async (req, res, brand) => {
       res.json(products);
     });
 };
-
-////////////////////////
-// PREVIOUS VERSION
-//   if (query && price !== undefined && category && sub) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("category ---->", category);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndPriceAndCategoryAndSub");
-//     await handleQueryAndPriceAndCategoryAndSub(
-//       req,
-//       res,
-//       query,
-//       price,
-//       category,
-//       sub
-//     );
-//   } else if (query && price == undefined && category && sub) {
-//     console.log("query ---->", query);
-//     console.log("category ---->", category);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndPriceAndCategoryAndSub");
-//     await handleQueryAndCategoryAndSub(req, res, query, category, sub);
-//   } else if (query && price !== undefined && !category && sub) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndPriceAndSub");
-//     await handleQueryAndPriceAndSub(req, res, query, price, sub);
-//   } else if (query && price == undefined && !category && sub) {
-//     console.log("query ---->", query);
-//     console.log("sub ---->", sub);
-//     console.log("within handleQueryAndSub");
-//     await handleQueryAndSub(req, res, query, sub);
-//   } else if (query && price !== undefined && category) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("category ---->", category);
-//     console.log("within handleQueryAndPriceAndCategory");
-//     await handleQueryAndPriceAndCategory(req, res, query, price, category);
-//   } else if (query && price !== undefined && !category) {
-//     console.log("query ---->", query);
-//     console.log("price ---->", price);
-//     console.log("within handleQueryAndPrice");
-//     await handleQueryAndPrice(req, res, query, price);
-//   } else if (!query && price !== undefined && !category) {
-//     console.log("price ---->", price);
-//     console.log("within handlePrice");
-//     await handlePrice(req, res, price);
-//   } else if (!query && price !== undefined && category) {
-//     console.log("price ---->", price);
-//     console.log("category ---->", category);
-//     console.log("within handlePriceAndCategory");
-//     await handlePriceAndCategory(req, res, price, category);
-//   } else if (query && price == undefined && !category) {
-//     console.log("query ---->", query);
-//     console.log("within handleQuery");
-//     await handleQuery(req, res, query);
-//   } else if (query && price == undefined && category) {
-//     console.log("query ---->", query);
-//     console.log("category ---->", category);
-//     console.log("within handleQueryAndCategory");
-//     await handleQueryAndCategory(req, res, query, category);
-//   } else if (!query && price === undefined && category) {
-//     console.log("category ---->", category);
-//     console.log("within handleCategory");
-//     await handleCategory(req, res, category);
-//   } else if (!query && price == undefined && !category && sub) {
-//     console.log("sub ---->", sub);
-//     console.log("within handleSub");
-//     await handleSub(req, res, sub);
-//   }
-//   if (stars) {
-//     console.log("stars ---->", stars);
-//     console.log("within handleStars");
-//     await handleStars(req, res, stars);
-//   }
-//   // if (sub) {
-//   //   console.log("sub ---->", sub);
-//   //   await handleSub(req, res, sub);
-//   // }
-//   // else if (query && stars) {
-//   //   console.log("query ---->", query);
-//   //   console.log("stars ---->", stars);
-//   //   await handleQueryAndStars(req, res, query, stars);
-//   // } else if (!query && stars) {
-//   //   console.log("stars ---->", stars);
-//   //   await handleStars(req, res, stars);
-//   // }
