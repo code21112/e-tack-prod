@@ -111,22 +111,6 @@ const Checkout = ({ history }) => {
       .catch((err) => console.log(err));
   };
 
-  // const applyDiscountCoupon = () => {
-  //   console.log("coupon before sending to backend", coupon);
-  //   applyCoupon(coupon, user.token).then((res) => {
-  //     console.log("res within applyDiscountCoupon", res.data);
-  //     if (res.data) {
-  //       setTotalAfterDiscount(res.data);
-  //       setMessageCouponApplied(`Coupon applied successfully!`);
-  //       // Updating the redux state
-  //     }
-  //     if (res.data.err) {
-  //       setDiscountError(res.data.err);
-  //       // Updating the redux state
-  //     }
-  //   });
-  // };
-
   const applyDiscountCoupon = () => {
     console.log("coupon before sending to backend", coupon);
     applyCoupon(coupon, user.token).then((res) => {
